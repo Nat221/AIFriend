@@ -22,13 +22,15 @@ export default function ChatClient({ children }: { children: React.ReactNode }) 
         console.log('Initializing Stream Chat client...');
         const chatClient = StreamChat.getInstance('cpnuj9dzj689');
 
-        await chatClient.connectUser({ id: '12', name: 'Steves' }, token);
+        const user = { id: '12' };
+
+        await chatClient.connectUser({ id: user.id, name: 'Steves' }, token);
         console.log('Client connected successfully');
         setClient(chatClient);
 
-        const channel = chatClient.channel('messaging', 'the_park', {
+        const channel = chatClient.channel('messaging', 'channel1', {
           name: 'The Park',
-          members: ['12'],
+          members: [user.id],
         } as any);
         await channel.watch();
         console.log('Channel connected successfully');
